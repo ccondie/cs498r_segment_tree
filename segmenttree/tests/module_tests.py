@@ -8,6 +8,7 @@ import unittest
 class SegmentTree_Test(unittest.TestCase):
     """This is an example of a Testing class. You'll want to replace this comment with your own.
     """
+
     def test_size(self):
         """Test that the size attribute exists
         """
