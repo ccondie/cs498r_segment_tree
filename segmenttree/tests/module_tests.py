@@ -20,3 +20,21 @@ class SegmentTree_Test(unittest.TestCase):
 
         segSched = SegmentTreeScheduler(10)
         self.assertEqual(hasattr(segSched, "size"), True)
+
+    '''
+    MISC TESTS
+    '''
+    def test_single_setValue(self):
+        seg = SegmentTree(10)
+        seg.setValue(10, 5)
+        self.assertEqual(seg.tree[0], seg.tree[5])
+
+    def test_double_setValue(self):
+        seg = SegmentTree(10)
+        print(seg.tree)
+        seg.setValue(10, 5)
+        print(seg.tree)
+        seg.setValue(7, 2)
+        print(seg.tree)
+
+        self.assertEqual(seg.tree[0], 17)
