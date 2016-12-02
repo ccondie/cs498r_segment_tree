@@ -143,6 +143,10 @@ class SegmentTreeMax(object):
 
 
 class SegmentTreeScheduler(object):
+    """
+    The nature of this segment tree will be that each leaf node will represent a minute in the day (for simplicity's sake there will be minutes 61-999)
+    contained in each leaf node will be a representation of the number of meetings scheduled for that minute
+    """
     def __init__(self, size):
         self.size = size
         self.tree_nodes = (2 ** (math.ceil(math.log(size, 2)) + 1)) - 1
@@ -150,13 +154,30 @@ class SegmentTreeScheduler(object):
         self.max_leaf = 2 ** (math.ceil(math.log(size, 2)))
 
     def setMeeting(self, startTime, endTime):
+        """
+        works by incrementing the number of meetings in each minute from startTime to endTime
+        :param startTime:
+        :param endTime:
+        :return:
+        """
         for index in range(startTime, endTime + 1):
             self.tree[self.get_tree_index(index)] += 1
 
     def numberOfMeetingsTakingPlace(self, time):
+        """
+        the way the tree is build getting the number of meetings at any given time is as simple as a lookup
+        :param time:
+        :return:
+        """
         return self.tree[self.get_tree_index(time)]
 
     def roomsOccupied(self, startTime, endTime):
+        """
+        this method looks for the greatest number of meetings (biggest leaf node) in the given time range
+        :param startTime:
+        :param endTime:
+        :return:
+        """
         maxVal = -sys.maxsize
         for index in range(startTime, endTime + 1):
             index = self.get_tree_index(index)

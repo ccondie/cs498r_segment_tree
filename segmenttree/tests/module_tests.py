@@ -81,3 +81,20 @@ class SegmentTree_Test(unittest.TestCase):
         self.def_seg_sched.setMeeting(900, 1100)
         print(self.def_seg_sched.numberOfMeetingsTakingPlace(900))
         self.assertEqual(self.def_seg_sched.numberOfMeetingsTakingPlace(900), 2)
+        self.def_seg_sched.setMeeting(1010,1020)
+        print(self.def_seg_sched.numberOfMeetingsTakingPlace(925))
+        self.assertEqual(self.def_seg_sched.numberOfMeetingsTakingPlace(925), 2)
+
+    def test_max_rooms(self):
+        self.def_seg_sched.setMeeting(800, 1000)
+        print(self.def_seg_sched.numberOfMeetingsTakingPlace(900))
+        self.assertEqual(self.def_seg_sched.numberOfMeetingsTakingPlace(900), 1)
+        self.def_seg_sched.setMeeting(900, 1100)
+        print(self.def_seg_sched.numberOfMeetingsTakingPlace(900))
+        self.assertEqual(self.def_seg_sched.numberOfMeetingsTakingPlace(900), 2)
+        self.def_seg_sched.setMeeting(1010, 1020)
+        print(self.def_seg_sched.numberOfMeetingsTakingPlace(925))
+        self.assertEqual(self.def_seg_sched.numberOfMeetingsTakingPlace(925), 2)
+        print(self.def_seg_sched.roomsOccupied(800,1100))
+        self.assertEqual(self.def_seg_sched.roomsOccupied(800,1100), 2)
+
