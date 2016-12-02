@@ -51,5 +51,7 @@ class SegmentTree_Test(unittest.TestCase):
         print(self.def_seg.tree)
 
     def test_get_sum(self):
-        pass
-
+        print(self.def_seg.getSum(2, 6))
+        self.assertEqual(self.def_seg.getSum(2, 6), 17)
+        print(self.def_seg.getSum(3, 3))
+        self.assertEqual(self.def_seg.getSum(3, 3), 5)

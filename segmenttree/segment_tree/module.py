@@ -1,4 +1,5 @@
 import math
+import sys
 
 
 class SegmentTree(object):
@@ -84,12 +85,61 @@ class SegmentTree(object):
 class SegmentTreeMax(object):
     def __init__(self, size):
         self.size = size
+        self.tree_nodes = (2 ** (math.ceil(math.log(size, 2)) + 1)) - 1
+        self.tree = [0] * self.tree_nodes
+        self.max_leaf = 2 ** (math.ceil(math.log(size, 2)))
 
     def setValue(self, value, index):
-        pass
+        # change the value at the index
+        tree_index = self.get_tree_index(index)
+        self.tree[tree_index] = value
+
+        # until we get to the root node
+        while tree_index != 0:
+            # get the parent of that node
+            tree_index = self.parentIndex(tree_index)
+            # update it to the sum of its children
+            self.tree[tree_index] = self.tree[self.childLeftIndex(tree_index)] + self.tree[
+                self.childRightIndex(tree_index)]
 
     def getMax(self, indexLeft, indexRight):
-        pass
+        maxVal = -sys.maxsize
+        for index in range(indexLeft, indexRight + 1):
+            index = self.get_tree_index(index)
+            if self.tree[index] > maxVal:
+                maxVal = self.tree[index]
+        return maxVal
+
+    def get_tree_index(self, default_index):
+        cur_index = 0
+        int_low = 0
+        int_high = self.size - 1
+        int_len = int_high - int_low
+
+        while int_len != 0:
+            # get the size of the interval represented at cur_index
+            mid_index_mod = math.floor(int_len / 2)
+            if default_index <= int_low + mid_index_mod:
+                # if the index we are searching for falls to the left of the interval split
+                cur_index = self.childLeftIndex(cur_index)
+                int_low = int_low
+                int_high = int_low + mid_index_mod
+            else:
+                # if the index we are searching for falls to the right on the interval split
+                cur_index = self.childRightIndex(cur_index)
+                int_low = int_low + mid_index_mod + 1
+                int_high = int_high
+            int_len = int_high - int_low
+        return cur_index
+
+    def childLeftIndex(self, parentIndex):
+        return parentIndex * 2 + 1
+
+    def childRightIndex(self, parentIndex):
+        return parentIndex * 2 + 2
+
+    def parentIndex(self, childIndex):
+        return math.floor((childIndex - 1) / 2)
 
 
 class SegmentTreeScheduler(object):
