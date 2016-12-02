@@ -30,15 +30,7 @@ class SegmentTree_Test(unittest.TestCase):
         self.def_seg_max.setValue(1, 6)
         self.def_seg_max.setValue(9, 7)
 
-        # self.def_seg_sched = SegmentTreeScheduler(8)
-        # self.def_seg_sched.setValue(5, 0)
-        # self.def_seg_sched.setValue(3, 1)
-        # self.def_seg_sched.setValue(2, 2)
-        # self.def_seg_sched.setValue(5, 3)
-        # self.def_seg_sched.setValue(7, 4)
-        # self.def_seg_sched.setValue(2, 5)
-        # self.def_seg_sched.setValue(1, 6)
-        # self.def_seg_sched.setValue(9, 7)
+        self.def_seg_sched = SegmentTreeScheduler(2400)
 
     def test_size(self):
         """Test that the size attribute exists
@@ -81,3 +73,11 @@ class SegmentTree_Test(unittest.TestCase):
         self.assertEqual(self.def_seg_max.getMax(0,7), 9)
         print(self.def_seg_max.getMax(1,3))
         self.assertEqual(self.def_seg_max.getMax(1,3), 5)
+
+    def test_num_meeting(self):
+        self.def_seg_sched.setMeeting(800, 1000)
+        print(self.def_seg_sched.numberOfMeetingsTakingPlace(900))
+        self.assertEqual(self.def_seg_sched.numberOfMeetingsTakingPlace(900), 1)
+        self.def_seg_sched.setMeeting(900, 1100)
+        print(self.def_seg_sched.numberOfMeetingsTakingPlace(900))
+        self.assertEqual(self.def_seg_sched.numberOfMeetingsTakingPlace(900), 2)
